@@ -1,0 +1,142 @@
+openapi: 3.0.3
+info:
+  title: Restaurant API
+  description: API pour récupérer les informations d'un restaurant
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /restaurant:
+    get:
+      summary: Récupérer les informations du restaurant
+      responses:
+        "200":
+          description: Réponse réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantResponse'
+components:
+  schemas:
+    RestaurantResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/RestaurantResponse_data'
+    RestaurantResponse_data_coordinates:
+      type: object
+      properties:
+        lat:
+          type: number
+          format: float
+          example: 48.8753817
+        lng:
+          type: number
+          format: float
+          example: 2.3513368
+    RestaurantResponse_data_time_periods:
+      type: object
+      properties:
+        start:
+          type: string
+          format: time
+        end:
+          type: string
+          format: time
+    RestaurantResponse_data_opening_hours:
+      type: object
+      properties:
+        day_of_week:
+          type: string
+          example: monday
+        time_periods:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestaurantResponse_data_time_periods'
+    RestaurantResponse_data:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 10
+        name:
+          type: string
+          example: Zelty R1
+        public_name:
+          type: string
+          example: Restaurant Stripe (Zelty R1)
+        logo_url:
+          type: string
+          format: uri
+          example: https://s3.eu-west-1.amazonaws.com/media-dev.zelty.fr/logos/74c81.png
+        cover_url:
+          type: string
+          format: uri
+          example: https://pm01.dev.zelty.fr//uploads/images/4/29691.jpg
+        address:
+          type: string
+          example: 34 rue de Paradis 75010 Paris
+        phone:
+          type: string
+          example: "+33114940478"
+        delivery_time:
+          type: integer
+          example: 0
+        delivery_charge:
+          type: number
+          format: float
+          example: 0
+        delivery_minimum:
+          type: number
+          format: float
+          example: 0
+        coordinates:
+          $ref: '#/components/schemas/RestaurantResponse_data_coordinates'
+        takeaway_delay:
+          type: integer
+          example: 10
+        eat_in_delay:
+          type: integer
+          example: 15
+        extra_delay:
+          type: integer
+          example: 10
+        ordering_available:
+          type: boolean
+          example: true
+        mail:
+          type: string
+          format: email
+          example: contact@zelty.fr
+        opening_hours:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestaurantResponse_data_opening_hours'
+        opening_hours_text:
+          type: string
+          nullable: true
+        closures:
+          type: array
+          items:
+            type: string
+        delivery_zones:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+          example: ""
+        timezone:
+          type: string
+          example: Europe/Paris
+        country_code:
+          type: string
+          example: FR
+        currency:
+          type: string
+          example: EUR
+        features:
+          type: array
+          items:
+            type: string
+            example: web_ordering
